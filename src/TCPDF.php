@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Config;
 
 class TCPDF
 {
-    protected static $format;
-
     protected $app;
     /** @var  TCPDFHelper */
     protected $tcpdf;
@@ -20,24 +18,11 @@ class TCPDF
 
     public function reset()
     {
-        $class = Config::get('tcpdf.use_fpdi') ? FpdiTCPDFHelper::class : TCPDFHelper::class;
+        $class = Config::get('tcpdf.use_class', TCPDFHelper::class);
 
-        $this->tcpdf = new $class(
-            Config::get('tcpdf.page_orientation', 'P'),
-            Config::get('tcpdf.page_units', 'mm'),
-            static::$format ? static::$format : Config::get('tcpdf.page_format', 'A4'),
-            Config::get('tcpdf.unicode', true),
-            Config::get('tcpdf.encoding', 'UTF-8'),
-            false, // Diskcache is deprecated
-            Config::get('tcpdf.pdfa', false)
-        );
+        $this->tcpdf = new $class();
 
         $this->tcpdf->disableTcpdfLink();
-    }
-
-    public static function changeFormat($format)
-    {
-        static::$format = $format;
     }
 
     public function __call($method, $args)

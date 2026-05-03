@@ -1,6 +1,6 @@
 A simple Laravel service provider to create a PDF that can import another PDF as a base template
 
-derived from
+derived from tcpdf-laravel and Setasign/FPDI:
 
 * https://github.com/elibyy/tcpdf-laravel A simple Laravel service provider with some basic configuration for including the TCPDF library
 * https://github.com/Setasign/FPDI A Free PDF Document Importer
