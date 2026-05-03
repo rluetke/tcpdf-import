@@ -11,8 +11,6 @@ return [
     'image_directory'       => public_path('img/'), // K_PATH_IMAGES, default = vendor/tecnickcom/tcpdf/...
     'tcpdf_throw_exception' => true, // K_TCPDF_THROW_EXCEPTION_ERROR, default = false
     'use_class'             => 'App\Helper\MyPDF', // own extended class, default = TCPDFHelper
-    'use_original_header'   => true,
-    'use_original_footer'   => true,
     'pdfa'                  => false, // Options: false, 1, 3, default = false by TCPDF-constructor
 
     // MyPDF settings (not set here before)

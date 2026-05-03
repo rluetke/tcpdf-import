@@ -1,6 +1,6 @@
 <?php
 
-namespace Elibyy\TCPDF;
+namespace Rluetke\TCPDF;
 
 use Illuminate\Support\Facades\Config;
 
@@ -48,6 +48,12 @@ class TCPDFHelper extends \TCPDF
         // $this->setImageScale(Config::get('tcpdf.image_scale_ratio'));
     }
 
+    protected function setDocumentProperties()
+    {
+        $this->SetCreator(Config::get('tcpdf.creator'));
+        $this->SetAuthor(Config::get('tcpdf.author'));
+    }
+
     protected function headerSettings()
     {
         if (Config::get('tcpdf.header_on', true) == false ) {
@@ -72,12 +78,6 @@ class TCPDFHelper extends \TCPDF
             Config::get('tcpdf.header_title', ''),
             Config::get('tcpdf.header_string', '')
         );
-    }
-
-    protected function setDocumentProperties()
-    {
-        $this->SetCreator(Config::get('tcpdf.creator'));
-        $this->SetAuthor(Config::get('tcpdf.author'));
     }
 
     protected function footerSettings()
@@ -111,7 +111,7 @@ class TCPDFHelper extends \TCPDF
             $cb = $this->headerCallback;
             $cb($this);
         } else {
-            if (Config::get('tcpdf.use_original_header')) {
+            if (Config::get('tcpdf.header_on', true)) {
                 parent::Header();
             }
         }
@@ -123,7 +123,7 @@ class TCPDFHelper extends \TCPDF
             $cb = $this->footerCallback;
             $cb($this);
         } else {
-            if (Config::get('tcpdf.use_original_footer')) {
+            if (Config::get('tcpdf.footer_on', false)) {
                 parent::Footer();
             }
         }

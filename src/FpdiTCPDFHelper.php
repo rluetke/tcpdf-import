@@ -1,6 +1,6 @@
 <?php
 
-namespace Elibyy\TCPDF;
+namespace Rluetke\TCPDF;
 
 use Illuminate\Support\Facades\Config;
 use setasign\Fpdi\TcpdfFpdi;
