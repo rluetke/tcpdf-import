@@ -144,7 +144,7 @@ class TCPDFHelper extends Fpdi
 
     /**
      * PDF-Import template
-     * set fonts_directory in config/tcpdf.php
+     * set fonts_directory set in config/tcpdf.php
      *
      * @param string $file PDF file name
      *
@@ -169,8 +169,17 @@ class TCPDFHelper extends Fpdi
         return $this->template_id;
     }
 
-    public function usePdfTemplate()
+    /**
+     * use the imported PDF template
+     *
+     * @param $tplId overwrite template id if > 0
+     *
+     * @return void
+     */
+    public function useTemplatePDF($tplId = 0)
     {
+        if ($tplId > 0) $this->template_id = $tplId;
+
         if ($this->template_id > 0) {
             $this->useTemplate($this->template_id);
         }

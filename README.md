@@ -11,7 +11,8 @@ Although [TCPDF](https://github.com/tecnickcom/TCPDF) is deprecated and has move
 
 ## Example
 
-The PDF file to be imported is expected in the TCPDF font folder, which may be set in the tcpdf config file.
+The PDF file to be imported is expected in the TCPDF font folder, which may be set in the tcpdf config file.  
+Hint: TCPDF allows only one font folder and expects all used fonts to be there.
 
 ```php
 use PDF; // at the top of the file
