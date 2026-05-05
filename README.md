@@ -8,6 +8,15 @@ derived from tcpdf-laravel and Setasign/FPDI:
 
 Although [TCPDF](https://github.com/tecnickcom/TCPDF) is deprecated and has moved to [tc-lib-pdf](https://github.com/tecnickcom/tc-lib-pdf), this modern and modular successor does not support the import of an existing PDF (as of 2026/05/01, see [Issue #117](https://github.com/tecnickcom/tc-lib-pdf/issues/117)).
 
+
+## Configuration
+
+```
+  php artisan vendor:publish --provider=""Rluetke\TCPDF\ServiceProvider"
+```
+
+
+
 FPDI:
 
 ```

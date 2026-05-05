@@ -56,7 +56,7 @@ class TCPDFHelper extends \TCPDF
 
     protected function headerSettings()
     {
-        if (Config::get('tcpdf.header_on', true) == false ) {
+        if (Config::get('tcpdf.header_on', false) == false ) {
             $this->setPrintHeader(false);
             return;
         }
@@ -159,7 +159,7 @@ class TCPDFHelper extends \TCPDF
     {
         parent::checkPageBreak($h, $y, $addpage);
     }
-    
+
     public function getPageBreakTrigger()
     {
         return $this->PageBreakTrigger;
