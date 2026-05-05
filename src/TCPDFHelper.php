@@ -3,12 +3,15 @@
 namespace Rluetke\TCPDF;
 
 use Illuminate\Support\Facades\Config;
+use setasign\Fpdi\Tcpdf\Fpdi;
 
-class TCPDFHelper extends \TCPDF
+class TCPDFHelper extends Fpdi
 {
-    protected $headerCallback;
+    protected $headerCallback; // for alternative PDF header
 
-    protected $footerCallback;
+    protected $footerCallback; // for alternative PDF footer
+
+    protected $template_id = 0; // for imported PDF
 
     public function __construct()
     {
@@ -138,6 +141,41 @@ class TCPDFHelper extends \TCPDF
     {
         $this->footerCallback = $callback;
     }
+
+    /**
+     * PDF-Import template
+     * set fonts_directory in config/tcpdf.php
+     *
+     * @param string $file PDF file name
+     *
+     * @return false|int Index of imported page - to use with Fpdi()
+     * @throws Exception
+     */
+    public function importPDF($file)
+    {
+        $fontfile = \TCPDF_FONTS::getFontFullPath($file); // public\packages\maxxscho\laravel-tcpdf\fonts
+        if (empty($fontfile))
+            $this->Error('Could not find import file: '.$file.'');
+
+        // $import = new TCPDI(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        // @link https://github.com/Setasign/FPDI
+        $pagecount = $this->setSourceFile($fontfile);
+        if ($pagecount != 1)
+            $this->Error('import error: '.$pagecount.' pages found!');
+
+        $this->template_id = $this->importPage(1);
+        // $this->useTemplate($idx);
+
+        return $this->template_id;
+    }
+
+    public function usePdfTemplate()
+    {
+        if ($this->template_id > 0) {
+            $this->useTemplate($this->template_id);
+        }
+    }
+
 
     public function addTOC($page = '', $numbersfont = '', $filler = '.', $toc_name = 'TOC', $style = '', $color = array(0, 0, 0))
     {
