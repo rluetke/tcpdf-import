@@ -20,7 +20,7 @@ use PDF; // at the top of the file
   PDF::importPDF('template.pdf');
   PDF::SetTitle('Hello World');
   PDF::AddPage();
-  PDF::usePdfTemplate();
+  PDF::useTemplatePDF();
   PDF::Write(0, 'Hello World');
   PDF::Output('hello_world.pdf');
 ```
