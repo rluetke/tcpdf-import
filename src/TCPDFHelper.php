@@ -7,9 +7,9 @@ use setasign\Fpdi\Tcpdf\Fpdi;
 
 class TCPDFHelper extends Fpdi
 {
-    protected $headerCallback; // for alternative PDF header
+    protected $headerCallback; // for alternative PDF header, public functions only
 
-    protected $footerCallback; // for alternative PDF footer
+    protected $footerCallback; // for alternative PDF footer, public functions only
 
     protected $template_id = 0; // for imported PDF
 
@@ -59,11 +59,7 @@ class TCPDFHelper extends Fpdi
 
     protected function headerSettings()
     {
-        if (Config::get('tcpdf.header_on', false) == false ) {
-            $this->setPrintHeader(false);
-            return;
-        }
-        $this->setPrintHeader(true);
+        $this->setPrintHeader(Config::get('tcpdf.header_on', false));
 
         $this->setHeaderFont(array(
             Config::get('tcpdf.header_font', PDF_FONT_NAME_MAIN),
@@ -85,11 +81,7 @@ class TCPDFHelper extends Fpdi
 
     protected function footerSettings()
     {
-        if (Config::get('tcpdf.footer_on', false) == false ) {
-            $this->setPrintFooter(false);
-            return;
-        }
-        $this->setPrintFooter(true);
+        $this->setPrintFooter(Config::get('tcpdf.footer_on', false));
 
         $this->setFooterFont(array(
             Config::get('tcpdf.footer_font', PDF_FONT_NAME_MAIN),

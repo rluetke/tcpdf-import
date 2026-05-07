@@ -32,14 +32,4 @@ class TCPDF
         }
         throw new \RuntimeException(sprintf('the method %s does not exists in TCPDF', $method));
     }
-
-    public function setHeaderCallback($headerCallback)
-    {
-        $this->tcpdf->setHeaderCallback($headerCallback);
-    }
-
-    public function setFooterCallback($footerCallback)
-    {
-        $this->tcpdf->setFooterCallback($footerCallback);
-    }
 }
