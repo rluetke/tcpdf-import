@@ -1,12 +1,53 @@
-A simple Laravel service provider to create a PDF that can import another PDF as a base template
+# Laravel PDF with Import
 
-derived from tcpdf-laravel and Setasign/FPDI:
+*still under development*
+
+A simple Laravel service provider to create a PDF that can import another PDF as a base template,  
+derived from elibyy/tcpdf-laravel and Setasign/FPDI:
 
 * https://github.com/elibyy/tcpdf-laravel A simple Laravel service provider with some basic configuration for including the TCPDF library (Laravel 6 - 13),
 * https://github.com/tecnickcom/TCPDF A PHP class for generating PDF files (PHP 7.1 - 8.5),
 * https://github.com/Setasign/FPDI, [FPDI](https://www.setasign.com/products/fpdi/) A Free PDF Document Importer (PHP 7.2 - 8.5)
 
 Although [TCPDF](https://github.com/tecnickcom/TCPDF) is deprecated and has moved to [tc-lib-pdf](https://github.com/tecnickcom/tc-lib-pdf), this modern and modular successor does not support the import of an existing PDF (as of 2026/05/01, see [Issue #117](https://github.com/tecnickcom/tc-lib-pdf/issues/117)).
+
+## Installation
+
+The tcpdf-import service provider can be installed via [composer](http://getcomposer.org) by requiring the `rluetke/tcpdf-import` package in your project's `composer.json`. (The installation may take a while, because the package requires TCPDF. Sadly its .git folder is very heavy)
+
+
+```json
+{
+    "repositories": [
+        {
+          "type": "github",
+          "url":  "git@github.com:rluetke/tcpdf-import.git"
+        }
+    ],
+    "require": {
+        "rluetke/tcpdf-import": "dev-main"
+    }
+}
+```
+
+If you don't use auto-discovery you will need to include the service provider / facade in `config/app.php`.
+
+
+```php
+'providers' => [
+    //...
+    Rluetke\TCPDF\ServiceProvider::class,
+]
+
+//...
+
+'aliases' => [
+    //...
+    'PDF' => Rluetke\TCPDF\Facades\TCPDF::class
+]
+```
+
+(Please note: TCPDF cannot be used as an alias)
 
 
 ## Example
@@ -28,19 +69,10 @@ use PDF; // at the top of the file
 
 ## Configuration
 
+tcpdf-import comes with some basic configuration.
+If you want to override the defaults, you can publish the config, like so:
 ```
   php artisan vendor:publish --provider=""Rluetke\TCPDF\ServiceProvider"
 ```
-
-
-
-FPDI:
-
-```
-{
-    "require": {
-        "tecnickcom/tcpdf": "6.6.*",
-        "setasign/fpdi": "^2.5"
-    }
-}
-```
+Now access `config/tcpdf.php` to customize.  
+Note: Many uppercase constants are set for TCPDF, but they are not used there.
